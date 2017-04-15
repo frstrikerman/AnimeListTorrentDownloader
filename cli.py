@@ -90,6 +90,7 @@ class Cli:
                         print(self.help[prompt[0]])
                         self.prompt()
             self.results = result.Result(url_RSS, show_name, show_ep, quality)
+            self.showResult()
             self.prompt()
         if prompt[0] == 'help':
             if len(prompt) == 1 or prompt[1] not in self.help.keys():
@@ -110,6 +111,10 @@ class Cli:
                     print("do a research before downloading")
             self.prompt()
 
+
+    def showResult(self):
+        for key, value in self.results.returnResult().items():
+                print(str(key) + " " + " ".join(value))
 
 if __name__ == "__main__":
     i = Cli(sys.argv[1:])

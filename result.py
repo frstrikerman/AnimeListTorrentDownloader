@@ -14,7 +14,7 @@ class Result:
         self.show_ep = show_ep
         self.quality = quality
         self.Processing()
-        self.showResult()
+        self.returnResult()
 
     def Processing(self):
         #try:
@@ -37,32 +37,13 @@ class Result:
                     elif self.quality is not None and self.show_ep is not None and self.show_ep is None and re.match('.*' + self.quality.replace('p', '') + '.*',animeinfo.resolution) and animeinfo.getEpisodeNumbers() == (self.show_ep, None):
                             self.result.append([i.title, i.links[0]['href']])
 
-    def showResult(self):
-        if self.result:
-            print(
-                "| Index   show                                                        episode     resolution      Fansub        URL")
-            for j, i in enumerate(self.result):
-                infoResult = trackma.AnimeInfoExtractor.AnimeInfoExtractor(i[0])
-                display = str(j + 1)
-                while len(' ' + display + str(j + 1) + ' ') < 9:
-                    display = " " + display + " "
-                display = "|" + display + infoResult.name
-                while len(display) < 70:
-                    display += ' '
-                episode = str(infoResult.episodeStart) + ''.join(
-                    "-" + str(infoResult.episodeEnd) if infoResult.episodeEnd is not None else '')
-                while len(' '+episode+' ') < 10:
-                    episode = ' ' + episode + ' '
-                display += episode
-                resolution = infoResult.resolution
-                while len (' ' + resolution + ' ') < 18:
-                    resolution = ' ' + resolution + ' '
-                fansub = infoResult.subberTag
-                while len(' ' + fansub + ' ') < 15:
-                    fansub = ' ' + fansub + ' '
-                display += resolution
-                display+= fansub
-                display += "  " + i[1]
-                print(display)
+    def returnResult(self):
+        returnList = dict()
+        for i,j in enumerate(self.result):
+            infoResult = trackma.AnimeInfoExtractor.AnimeInfoExtractor(j[0])
+            returnList[i+1] = [infoResult.name, str(infoResult.episodeStart) + ''.join(
+                    "-" + str(infoResult.episodeEnd) if infoResult.episodeEnd != None else ''), str(infoResult.resolution), str(infoResult.subberTag)]
+        return returnList
+
     def getlink(self, choice):
         return self.result[choice][1]
