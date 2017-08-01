@@ -19,11 +19,11 @@ class Result:
     def Processing(self):
         self.url_RSS = self.url_RSS.replace('%title%', self.show_name.replace(' ', '+').replace(':', '%3A').replace(';', '%3B'))
         offset = 1
-        tracker_feed = feedparser.parse(self.url_RSS)
         navigable = bool(re.search('%pagenumber%', self.url_RSS))
+        splitedUrl= self.url_RSS.split('%pagenumber%')
+        tracker_feed = feedparser.parse(splitedUrl[0]+str(offset)+splitedUrl[1])
         while tracker_feed.entries:
-            self.url_RSS = self.url_RSS.split()[0] + str(offset) + self.url_RSS.split()[1]
-            tracker_feed = feedparser.parse(self.url_RSS)
+            tracker_feed = feedparser.parse(splitedUrl[0]+str(offset)+splitedUrl[1])
             offset += 1
             for i in tracker_feed.entries:
                 animeinfo = trackma.AnimeInfoExtractor.AnimeInfoExtractor(i.title)
