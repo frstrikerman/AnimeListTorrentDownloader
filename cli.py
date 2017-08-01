@@ -18,7 +18,7 @@ class Cli:
         quality = None
         torrent_client = str()
         show_name = None
-        url_RSS = 'https://www.nyaa.se/?page=rss&cats=1_0'
+        url_RSS = 'https://nyaa.si/rss?c=1_2&q=%title%'
 
         try:
             opts, args = getopt.getopt(argv, "hc:u:s:n:q:", ["help", "client=", "url=", "show=", "num=", "quality="])
@@ -52,7 +52,7 @@ class Cli:
         quality = None
         torrent_client = str()
         show_name = []
-        url_RSS = 'https://www.nyaa.se/?page=rss&cats=1_0'
+        url_RSS = "https://nyaa.si/rss?c=1_2&q=%title%&f=%pagenumber%"
         prompt = input("enter command >>> ").split(" ")
         while prompt[0] not in ['search', 'download', 'help', 'exit']:
             print('enter a proper command\n if you want the command list type help ')
