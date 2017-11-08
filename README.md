@@ -9,7 +9,10 @@ For now you can download anime with a shell
    $ cd AnimeListTorrentDownloader
    $ ./cli.py
 ```
-
+# dependancies
+```sh
+   # pip3 install feedparser
+```
 # Short help
 
 ```
